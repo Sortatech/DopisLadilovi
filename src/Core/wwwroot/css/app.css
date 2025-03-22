@@ -157,3 +157,34 @@ code {
 		.challenge-box button:hover {
 			background-color: #005a9e;
 		}
+@font-face {
+	font-family: 'Boecklins';
+	src: url('/css/fonts/Boecklinsuniverse-x3jKm.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.cimrman, .cimrman * {
+	font-family: 'Boecklins', sans-serif;
+}
+
+.cimrman {
+	margin: 0 auto; /* centers the container horizontally */
+	min-width: 640px; /* sets the minimum width */
+	max-width: 640px; /* shrinks to fit the longest line of content */
+}
+
+	.cimrman pre {
+		text-align: left; /* keep the <pre> content left-aligned for readability */
+	}
+
+.center-container {
+	text-align: center; /* centers its inline/inline-block children */
+	width: 100%;
+}
+
+	.center-container .content,
+	.cimrman {
+		display: inline-block; /* shrink-to-fit width */
+		text-align: left; /* keep text inside left-aligned */
+	}
