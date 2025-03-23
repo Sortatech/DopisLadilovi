@@ -12,8 +12,8 @@ window.getChallenge = () => {
     return window.passphraseConfig.challenge;
 };
 
-window.toggleOverlay = () => {
-    const linkElem = document.querySelector('.hebkost');
+window.toggleOverlay = (selector) => {
+    const linkElem = document.querySelector(selector);
     if (linkElem) {
         linkElem.classList.toggle('clicked');
     }

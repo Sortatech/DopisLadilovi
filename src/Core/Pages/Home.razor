@@ -10,7 +10,7 @@
     // Define the levels in order
     private string[] levels = new string[] { "OK", "OK-ish", "brutal", "hardcore" };
 
-    private int GetLevelIndex(string level) 
+    private int GetLevelIndex(string level)
         => Array.IndexOf(levels, level);
 
     // Checks whether an element has any level-related classes
@@ -23,22 +23,17 @@
     // equal to activeLevel + "-off" in which case it should be hidden.
     private bool ShouldShowElement(params string[] classes)
     {
-        // If element is not level related, always show it.
         if (!ShouldFilter(classes))
         {
             return true;
         }
 
-        // If one of the classes exactly equals the current active level plus an "-off" suffix, hide it.
         if (classes.Any(c => c == activeLevel + "-off"))
         {
             return false;
         }
 
-        // Get active level index.
         int activeIdx = GetLevelIndex(activeLevel);
-
-        // Show the element if any provided level class has an index less than or equal to activeIdx.
         return classes.Any(c =>
         {
             int idx = Array.IndexOf(levels, c);
@@ -48,7 +43,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Get the challenge string from the JS file
         challenge = await JS.InvokeAsync<string>("getChallenge");
     }
 
@@ -56,11 +50,17 @@
     {
         // Validate the passphrase using the JS function
         isAuthenticated = await JS.InvokeAsync<bool>("validatePassphrase", passphrase);
+
+        if (!isAuthenticated)
+        {
+            // If the passphrase is incorrect, show the alert.
+            await JS.InvokeVoidAsync("alert", "Intuere me, perfringe me");
+        }
     }
 
-    private async Task ToggleOverlay()
+    private async Task ToggleOverlay(string cssClass)
     {
-        await JS.InvokeVoidAsync("toggleOverlay");
+        await JS.InvokeVoidAsync("toggleOverlay", cssClass);
     }
 
     private void SetActiveLevel(string level)
@@ -68,6 +68,8 @@
         activeLevel = level;
     }
 }
+
+
 
 @if (!isAuthenticated)
 {
@@ -126,7 +128,7 @@ trudomyslnosti bičem.</pre>
 
             @if (ShouldShowElement("hardcore"))
             {
-                <pre class="hardcore">Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
+                <pre class="hardcore">Je z řady <a class="hebkost" role="button" tabindex="0" @onclick='() => ToggleOverlay(".hebkost")'><span>ten nejvíc hebký</span></a>,
 gumička je v příslušenství,
 bys ho přived k poslušenství.
 Oholit vlas z vlastní lebky?
@@ -138,8 +140,7 @@ literární počin ztropit?</pre>
 
             @if (ShouldShowElement("OK", "hardcore-off"))
             {
-                
-        <pre class="OK hardcore-off">Vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
+                <pre class="OK hardcore-off">Vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick='() => ToggleOverlay(".hebkost")'><span>hebkostí</span></a>,
 přiloženou gumičkou,
 přitáhneš ho s lehkostí,
 budeš jeho paničkou!</pre>
@@ -206,9 +207,8 @@ roste mi z ní levák!</pre>
             }
 
             <!-- Elements without level-related classes, always visible -->
-            <pre>
-Pozn.:
-Gumicuk lze použít obecně, aby se Ti vracelo,
+            <b>Pozn.:</b>
+            <pre>Gumicuk lze použít obecně, aby se Ti vracelo,
 co chceš, aby se ti vracelo:
 manželka,
 tvá pánská kabelka,
@@ -219,7 +219,10 @@ kognice i kondice,
 děti, ať jste zase v pěti
 vtipnost a vtipnost (***),
 ducha mladost, ze života radost, (****)</pre>
-            <pre>a zdravá nasranost,</pre>
+            @if (ShouldShowElement("brutal"))
+            {
+                <pre>a zdravá nasranost,</pre>
+            }
             <pre>jediný problém je umět to správně uvázat...</pre>
             <br/>
             @if (ShouldShowElement("brutal"))
@@ -234,7 +237,14 @@ ducha mladost, ze života radost, (****)</pre>
                 </p>
             }
             <p>
-                *** všimni si, že schválně nepíšu synonymum toho slova, protože s tím se rýmuje takový ošklivý a zlý - nepěkná věc! Ale se slovem vtipnost se na druhou stranu dá svořit pěkný absolutní rým, Protože se s tím skoro nic nerýmuje, tedy kromě slova cypnost, ale není v Ottově slovníku naučném a nezná ho ani google (mimo archivu obce Číž, ale přišlo mi to jako ňákej renonc), tak jsem si to neuznal. Ale protože mi přišlo, že úplně přesně nevěděls, kde je pahrbek geniality, pořídil jsem ti maximus videoopus her Divadla Járy Cimrmana. Sehnat to nebylo úplně snadné, ale snad ti to s tím tumorem pomůže. Kdybys náhodou neměl mechaniku, jednu jsem zprovoznil a můžu půjčit, ale musíš mi slíbit, že do toho nebudeš hrabat prackama, když to bude zapnuté.
+                *** všimni si, že schválně nepíšu synonymum toho slova, protože s tím se rýmuje takový ošklivý a zlý - nepěkná věc!
+                Ale se slovem vtipnost se na druhou stranu dá svořit pěkný absolutní rým, Protože se s tím skoro nic nerýmuje, tedy kromě slova cypnost,
+                ale není v Ottově slovníku naučném a nezná ho ani google (mimo archivu obce Číž, ale přišlo mi to jako ňákej renonc), tak jsem si to neuznal.
+                Nicméně protože mi přišlo, že úplně přesně nevěděls, kde je pahrbek geniality, pořídil jsem ti maximus videoopus her Divadla Járy Cimrmana.
+                Sehnat to nebylo úplně snadné, ale snad ti to s tím tumorem pomůže. Kdybys náhodou neměl mechaniku,
+                <a class="mechanika" role="button" tabindex="0" @onclick='() => ToggleOverlay(".mechanika")'><span>jednu jsem zprovoznil</span></a> a můžu půjčit,
+                ale musíš mi slíbit, že do toho nebudeš hrabat prackama, když to bude zapnuté. To by bylo mrzuté, vyhrát nad rakovinou a pak se nechat vycukat 230 V.
+                Kolik peněz ta léčba musela stát už...
             </p>
             <p>
                 **** na mladost těla si ještě počkáš, nebo půjde svět doprdele a žádné funkční omlazující kůry prostě nebudou
