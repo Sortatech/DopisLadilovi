@@ -23,7 +23,7 @@ jobs:
 
       - name: Publish Blazor App
         working-directory: src/Core
-        run: dotnet publish App.csproj -c Release -o ../../published
+        run: dotnet publish -c Release -o ../../published
 
       - name: Organize Published Files
         run: |
