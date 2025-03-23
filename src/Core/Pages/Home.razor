@@ -17,6 +17,11 @@
         // Validate the passphrase using the JS function
         isAuthenticated = await JS.InvokeAsync<bool>("validatePassphrase", passphrase);
     }
+    
+    private async Task ToggleOverlay()
+    {
+        await JS.InvokeVoidAsync("toggleOverlay");
+    }
 }
 
 @if (!isAuthenticated)
@@ -34,37 +39,83 @@ else
     
     <div class="center-container">
         <div class="content cimrman">
-            <h2>Dopis Ládilovi</h2>
+            <h2>Ládilovi</h2>
             <p class="grey">Milý příteli,</p>
-            <pre>
+            <pre class="OK">
 umělou vagínu, umělou inteligencí vybavenou,
-žel nakonec nemáš v obálkách tučných přibalenou.
+žel tu nemáš v obálkách tučných přibalenou.
 Tu zaházeli v ložnici dělníci konstrukcí při rekonstrukci.
 
+</pre>
+<pre class="OK">
 Zavděk vezmi, prosím, míčem,
 trudomyslnosti bičem.
-Je z řady ten nejvíc hebký,
+
+</pre>
+<pre class="hardcore switch">
+Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
 gumička je v příslušenství,
 bys ho přived k poslušenství.
 Oholit vlas z vlastní lebky?
 Jak solidér se pera chopit?
 když teď rukou musíš psát,
 inkoust perem zkusit vsát,
-literární počin ztropit?
+zkouším literární počin ztropit?
 
-Bit či ne-bit, být či nebýt, člověk míní, život mění,*
+</pre>
+<pre class="OK switch">
+vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
+přiloženou gumičkou,
+přitáhneš ho s lehkostí,
+budeš jeho paničkou!
+
+</pre>
+
+<pre class="brutal">
+Bit či ne-bit, být či nebýt, člověk míní, život mění, (*)
 Klišé?!! Touché!
 Být či být, jiná možnost možná kruci není!
 Nebo je?
-Ne! Kočka žije!** 
+Ne! Kočka žije!(**)
 
+</pre>
+
+<pre class="OK-ish">
 Kámo, ještě podaruji Tě,
 v naší virtuální realitě,
 okuláry k virtuální realitě,
 
+</pre>
+<pre class="hardcore">
 aby se Ti lépe zvracelo,
-kdyby ti nestačila ta skutečná, ta naše.
+jsme teď zas v pořádný kaši,
+historie se zase opakuje,
+realitu neskutečně skutečnou, tu naši.
 
+</pre>
+<pre class="OK">
+Je to blbé, ale je to tak,
+dcera má má ne-moc jak ty,
+nemám se štěstěnou pakty,
+roste mi z ní levák!
+
+</pre>
+<pre class="OK">
+Že jsem nula negativní,
+může být i pozitivní,
+zůstal jsem zas nepochopen,
+z kosti vnitřky dát jsem schopen.
+
+</pre>
+<pre class="OK-ish">
+Jak clifhanger teď pár let viset musíš,
+jako kůň dřít si teď zkusíš,
+drž se pevně,
+uvnitř sílu najdeš i vně,
+
+</pre>
+
+<pre class="OK">
 Pozn.:
 Gumicuk lze použít obecně, aby se Ti vracelo,
 co chceš, aby se ti vracelo:
@@ -79,20 +130,31 @@ nebo s tričkem s kočkou stále živou, nebo bratr,
 kognice i kondice,
 
 děti, ať jste zase v pěti
-vtipnost a vtipnost(***),
+vtipnost a vtipnost (***),
 
-mladost, ze života radost,
+ducha mladost, ze života radost, (****)
 
-jediný problém je umět to správně uvázat...
 </pre>
-            <p>
+<pre class="ok-ish">
+a zdravá nasranost,
+
+</pre>
+<pre>
+jediný problém je umět to správně uvázat...
+
+</pre>
+<br/>
+            <p class="brutal">
                 * tady není Krakonošovo, „Tady je „Kvantovo“!“, proto tam nejsou čárky 😉
             </p>
-            <p>
+            <p class="brutal">
                 ** teď nemyslím ty kolotočáře
             </p>
             <p>
                 *** všimni si, že schválně nepíšu synonymum toho slova, protože s tím se rýmuje takový ošklivý a zlý - nepěkná věc! Ale se slovem vtipnost se na druhou stranu dá svořit pěkný absolutní rým, Protože se s tím skoro nic nerýmuje, tedy kromě slova cypnost, ale není v Ottově slovníku naučném a nezná ho ani google (mimo archivu obce Číž, ale přišlo mi to jako ňákej renonc), tak jsem si to neuznal. Ale protože mi přišlo, že úplně přesně nevěděls, kde je pahrbek geniality, pořídil jsem ti maximus videoopus her Divadla Járy Cimrmana. Sehnat to nebylo úplně snadné, ale snad ti to s tím tumorem pomůže. Kdybys náhodou neměl mechaniku, jednu jsem zprovoznil a můžu půjčit, ale musíš mi slíbit, že do toho nebudeš hrabat prackama, když to bude zapnuté.
+            </p>
+            <p>
+                **** na mladost těla si ještě počkáš, nebo půjde svět doprdele a žádné funkční omlazující kůry prostě nebudou
             </p>
             <p>
                 PS: Můj básnický talent mi zajistil manželku, takže si myslím, že jsem v tom prostě dobrej - tím pádem vyjádření v takovéto lyrizující formě mi přijde, jako dobrej nápad! Indžój.
