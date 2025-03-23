@@ -5,6 +5,10 @@ on:
     branches:
       - Publish
 
+permissions:
+  contents: read
+  pages: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -16,7 +20,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'  # adjust to your target version
+          dotnet-version: '9.0.x'
 
       - name: Install wasm-tools workload
         run: dotnet workload install wasm-tools
@@ -38,5 +42,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: published
           publish_branch: gh-pages
-          # force_orphan: true ensures a clean commit history on each deploy
           force_orphan: true
