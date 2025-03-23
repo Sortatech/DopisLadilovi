@@ -188,3 +188,37 @@ code {
 		display: inline-block; /* shrink-to-fit width */
 		text-align: left; /* keep text inside left-aligned */
 	}
+
+.hebkost {
+	position: relative;
+	cursor: pointer;
+}
+
+	/* When the element has the "clicked" class, display overlays */
+	.hebkost.clicked::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 9;
+	}
+
+	.hebkost.clicked::after {
+		content: "";
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 400px;
+		height: 300px;
+		background-image: url('/css/StupniceHebkosti.JPG');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		border-radius: 32px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+		z-index: 10;
+	}

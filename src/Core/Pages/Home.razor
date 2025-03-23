@@ -17,6 +17,11 @@
         // Validate the passphrase using the JS function
         isAuthenticated = await JS.InvokeAsync<bool>("validatePassphrase", passphrase);
     }
+    
+    private async Task ToggleOverlay()
+    {
+        await JS.InvokeVoidAsync("toggleOverlay");
+    }
 }
 
 @if (!isAuthenticated)
@@ -34,37 +39,79 @@ else
     
     <div class="center-container">
         <div class="content cimrman">
-            <h2>Dopis Ládilovi</h2>
+            <h2>Ládilovi</h2>
             <p class="grey">Milý příteli,</p>
-            <pre>
+            <pre class="OK">
 umělou vagínu, umělou inteligencí vybavenou,
-žel nakonec nemáš v obálkách tučných přibalenou.
+žel tu nemáš v obálkách tučných přibalenou.
 Tu zaházeli v ložnici dělníci konstrukcí při rekonstrukci.
 
+</pre>
+<pre class="OK">
 Zavděk vezmi, prosím, míčem,
 trudomyslnosti bičem.
-Je z řady ten nejvíc hebký,
+
+</pre>
+<pre class="hardcore">
+Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
 gumička je v příslušenství,
 bys ho přived k poslušenství.
 Oholit vlas z vlastní lebky?
 Jak solidér se pera chopit?
 když teď rukou musíš psát,
 inkoust perem zkusit vsát,
-literární počin ztropit?
+zkouším literární počin ztropit?
 
+</pre>
+<pre class="OK">
+vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
+přiloženou gumičkou,
+přitáhneš ho s lehkostí,
+budeš jeho paničkou!
+
+</pre>
+
+    <pre class="hardcore">
 Bit či ne-bit, být či nebýt, člověk míní, život mění,*
 Klišé?!! Touché!
 Být či být, jiná možnost možná kruci není!
 Nebo je?
 Ne! Kočka žije!** 
+    </pre>
 
+            <pre class="OK">
 Kámo, ještě podaruji Tě,
 v naší virtuální realitě,
 okuláry k virtuální realitě,
 
+</pre>
+<pre class="ok">
 aby se Ti lépe zvracelo,
-kdyby ti nestačila ta skutečná, ta naše.
+jsme teď zas v pořádný kaši,
+historie se zase opakuje,
+realitu neskutečně skutečnou, tu naši.
 
+    </pre>
+            <pre class="hardcore">
+Je to blbé, ale je to tak,
+má dcera má ne-moc jak ty,
+leč nemám žádný s ďáblem pakty,
+roste mi z ní levák! 
+        </pre>
+            <pre class="OK">
+
+Že jsem nula negativní,
+může být i pozitivní,
+zůstal jsem zas nepochopen,
+ještě z kosti vnitřky dát jsem schopen.
+
+    </pre>
+            <pre class="hardcore">
+Jak clifhanger teď musíš viset, pevně drž se,
+
+</pre>
+
+<pre class="OK">
 Pozn.:
 Gumicuk lze použít obecně, aby se Ti vracelo,
 co chceš, aby se ti vracelo:

@@ -11,3 +11,10 @@ window.validatePassphrase = (input) => {
 window.getChallenge = () => {
     return window.passphraseConfig.challenge;
 };
+
+window.toggleOverlay = () => {
+    const linkElem = document.querySelector('.hebkost');
+    if (linkElem) {
+        linkElem.classList.toggle('clicked');
+    }
+};
