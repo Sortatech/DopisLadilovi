@@ -214,7 +214,7 @@ code {
 		transform: translate(-50%, -50%);
 		width: 400px;
 		height: 300px;
-		background-image: url('/css/StupniceHebkosti.JPG');
+		background-image: url('/images/StupniceHebkosti.JPG');
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center;
@@ -222,3 +222,60 @@ code {
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 		z-index: 10;
 	}
+
+.cringe-level {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 1rem 0;
+	gap: 1rem;
+	width: 100%;
+	max-width: 320px;
+}
+
+.level-button {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.5rem;
+	border: 2px solid lightgray; /* Inactive border is light-gray */
+	border-radius: 8px;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	max-width: 150px;
+	opacity: 0.25;
+	filter: grayscale(60%);
+}
+
+	.level-button:hover {
+		/* Slightly less opacity on hover for inactive ones */
+		opacity: 0.6;
+		filter: grayscale(40%);
+	}
+
+	.level-button.active {
+		border-color: black; /* Active border is black */
+		opacity: 1;
+		filter: grayscale(0%);
+		box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+	}
+
+.image-container {
+	width: 82px;
+	height: 64px;
+	overflow: hidden;
+	border-radius: 16px;
+}
+
+.level-button img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.level-button span {
+	margin-top: 0.5rem;
+	font-weight: bold;
+}

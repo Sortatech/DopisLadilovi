@@ -20,19 +20,19 @@
     <Content Update="wwwroot\CNAME">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\favicon.png">
+    <Content Update="wwwroot\images\favicon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\icon-128.png">
+    <Content Update="wwwroot\images\icon-128.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\icon-192.png">
+    <Content Update="wwwroot\images\icon-192.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\icon-512.png">
+    <Content Update="wwwroot\images\icon-512.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\css\StupniceHebkosti.JPG">
+    <Content Update="wwwroot\images\StupniceHebkosti.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

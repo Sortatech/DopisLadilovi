@@ -5,6 +5,7 @@
     private string passphrase = string.Empty;
     private bool isAuthenticated = false;
     private string challenge = string.Empty;
+    private string activeLevel = "OK";
 
     protected override async Task OnInitializedAsync()
     {
@@ -22,6 +23,11 @@
     {
         await JS.InvokeVoidAsync("toggleOverlay");
     }
+
+    private void SetActiveLevel(string level)
+    {
+        activeLevel = level;
+    }
 }
 
 @if (!isAuthenticated)
@@ -38,8 +44,31 @@ else
 {
     
     <div class="center-container">
+        
         <div class="content cimrman">
-            <h2>Ládilovi</h2>
+            <div class="cringe-level">
+                <button class="level-button @(activeLevel == "OK" ? "active" : "")" @onclick='() => SetActiveLevel("OK")'>
+                    <div class="image-container">
+                        <img src="images/ok.jpg" alt="OK Level" />
+                    </div>
+                </button>
+                <button class="level-button @(activeLevel == "OK-ish" ? "active" : "")" @onclick='() => SetActiveLevel("OK-ish")'>
+                    <div class="image-container">
+                        <img src="images/ok-ish.jpg" alt="OK-ish Level" />
+                    </div>
+                </button>
+                <button class="level-button @(activeLevel == "brutal" ? "active" : "")" @onclick='() => SetActiveLevel("brutal")'>
+                    <div class="image-container">
+                        <img src="images/brutal.jpg" alt="Brutal Level" />
+                    </div>
+                </button>
+                <button class="level-button @(activeLevel == "hardcore" ? "active" : "")" @onclick='() => SetActiveLevel("hardcore")'>
+                    <div class="image-container">
+                        <img src="images/hardcore.jpg" alt="Hardcore Level" />
+                    </div>
+                </button>
+            </div>
+            <br/>
             <p class="grey">Milý příteli,</p>
             <pre class="OK">
 umělou vagínu, umělou inteligencí vybavenou,
@@ -53,7 +82,7 @@ trudomyslnosti bičem.
 
 </pre>
 
-<pre class="hardcore switch">
+<pre class="hardcore">
 Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
 gumička je v příslušenství,
 bys ho přived k poslušenství.
@@ -65,7 +94,7 @@ zkouším literární počin ztropit?
 
 </pre>
 
-<pre class="OK switch">
+<pre class="OK hardcore-off">
 
 vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
 přiloženou gumičkou,
