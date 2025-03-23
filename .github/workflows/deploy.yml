@@ -39,7 +39,7 @@ jobs:
       - name: Deploy to gh-pages Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.PAT_TOKEN }}
           publish_dir: published
           publish_branch: gh-pages
           force_orphan: true
