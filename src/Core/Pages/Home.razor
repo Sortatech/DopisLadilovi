@@ -7,6 +7,10 @@
     private string challenge = string.Empty;
     private string activeLevel = "OK";
 
+    // Error dialog properties
+    private bool showErrorDialog = false;
+    private string errorMessage = string.Empty;
+
     // Define the levels in order
     private string[] levels = new string[] { "OK", "OK-ish", "brutal", "hardcore" };
 
@@ -53,8 +57,9 @@
 
         if (!isAuthenticated)
         {
-            // If the passphrase is incorrect, show the alert.
-            await JS.InvokeVoidAsync("alert", "Intuere me, perfringe me");
+            // Instead of a browser alert, show our styled error modal.
+            errorMessage = "Intuere me, perfringe me";
+            showErrorDialog = true;
         }
     }
 
@@ -66,6 +71,12 @@
     private void SetActiveLevel(string level)
     {
         activeLevel = level;
+    }
+    
+    private async Task CloseErrorDialog()
+    {
+        showErrorDialog = false;
+        await InvokeAsync(StateHasChanged);
     }
 }
 
@@ -256,6 +267,16 @@ ducha mladost, ze života radost, (****)</pre>
                 A jak se říká mezi námi programátory – „Stay DRY!“
             </p>
             <p class="grey">0re1</p>
+        </div>
+    </div>
+}
+
+@if (showErrorDialog)
+{
+    <div class="modal-overlay" @onclick="CloseErrorDialog">
+        <div class="modal-dialog" @onclick:stopPropagation>
+            <p>@errorMessage</p>
+            <button type="button" class="modal-close-button" @onclick="CloseErrorDialog">Claude</button>
         </div>
     </div>
 }
