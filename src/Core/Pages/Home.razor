@@ -7,6 +7,45 @@
     private string challenge = string.Empty;
     private string activeLevel = "OK";
 
+    // Define the levels in order
+    private string[] levels = new string[] { "OK", "OK-ish", "brutal", "hardcore" };
+
+    private int GetLevelIndex(string level) 
+        => Array.IndexOf(levels, level);
+
+    // Checks whether an element has any level-related classes
+    private bool ShouldFilter(IEnumerable<string> classes) =>
+        classes.Any(c => levels.Contains(c) || c.EndsWith("-off"));
+
+    // Business logic:
+    // For an element with one or more level-related classes, show it if it has any class
+    // with an index <= active level’s index, unless the element has a class exactly
+    // equal to activeLevel + "-off" in which case it should be hidden.
+    private bool ShouldShowElement(params string[] classes)
+    {
+        // If element is not level related, always show it.
+        if (!ShouldFilter(classes))
+        {
+            return true;
+        }
+
+        // If one of the classes exactly equals the current active level plus an "-off" suffix, hide it.
+        if (classes.Any(c => c == activeLevel + "-off"))
+        {
+            return false;
+        }
+
+        // Get active level index.
+        int activeIdx = GetLevelIndex(activeLevel);
+
+        // Show the element if any provided level class has an index less than or equal to activeIdx.
+        return classes.Any(c =>
+        {
+            int idx = Array.IndexOf(levels, c);
+            return idx != -1 && idx <= activeIdx;
+        });
+    }
+
     protected override async Task OnInitializedAsync()
     {
         // Get the challenge string from the JS file
@@ -18,7 +57,7 @@
         // Validate the passphrase using the JS function
         isAuthenticated = await JS.InvokeAsync<bool>("validatePassphrase", passphrase);
     }
-    
+
     private async Task ToggleOverlay()
     {
         await JS.InvokeVoidAsync("toggleOverlay");
@@ -42,10 +81,9 @@
 }
 else
 {
-    
     <div class="center-container">
-        
         <div class="content cimrman">
+            <!-- Cringe level button bar -->
             <div class="cringe-level">
                 <button class="level-button @(activeLevel == "OK" ? "active" : "")" @onclick='() => SetActiveLevel("OK")'>
                     <div class="image-container">
@@ -69,147 +107,141 @@ else
                 </button>
             </div>
             <br/>
+            <!-- Example content that is always visible -->
             <p class="grey">Milý příteli,</p>
-            <pre class="OK">
+
+            <!-- Example filtered pre elements -->
+            @if (ShouldShowElement("OK"))
+            {
+                <pre class="OK">
 umělou vagínu, umělou inteligencí vybavenou,
 žel tu nemáš v obálkách tučných přibalenou.
-Tu zaházeli v ložnici dělníci konstrukcí při rekonstrukci.
+Tu zaházeli v ložnici dělníci konstrukcí při rekonstrukci.</pre>
+            }
 
-</pre>
-<pre class="OK">
+            @if (ShouldShowElement("OK"))
+            {
+                <pre class="OK">
 Zavděk vezmi, prosím, míčem,
-trudomyslnosti bičem.
+trudomyslnosti bičem.</pre>
+            }
 
-</pre>
-
-<pre class="hardcore">
-Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
+            @if (ShouldShowElement("hardcore"))
+            {
+                <pre class="hardcore">Je z řady <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>ten nejvíc hebký</span></a>,
 gumička je v příslušenství,
 bys ho přived k poslušenství.
 Oholit vlas z vlastní lebky?
 Jak solidér se pera chopit?
 když teď rukou musíš psát,
-inkoust perem zkusit vsát,
-zkouším literární počin ztropit?
+inkoust perem zkusit vsát?
+literární počin ztropit?</pre>
+            }
 
-</pre>
-
-<pre class="OK hardcore-off">
-
-vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
+            @if (ShouldShowElement("OK", "hardcore-off"))
+            {
+                
+        <pre class="OK hardcore-off">Vyniká svou <a class="hebkost" role="button" tabindex="0" @onclick="ToggleOverlay"><span>hebkostí</span></a>,
 přiloženou gumičkou,
 přitáhneš ho s lehkostí,
-budeš jeho paničkou!
+budeš jeho paničkou!</pre>
+            }
 
-</pre>
-
-<pre class="brutal">
+            @if (ShouldShowElement("brutal"))
+            {
+                <pre class="brutal">
 Bit či ne-bit, být či nebýt, člověk míní, život mění, (*)
 Klišé?!! Touché!
 Být či být, jiná možnost možná kruci není!
 Nebo je?
-Ne! Kočka žije!(**)
+Ne! Kočka žije!(**)</pre>
+            }
 
-</pre>
-
-<pre class="hardcore">
-Bit či ne-bit, být či nebýt, člověk míní, život mění,*
-Klišé?!! Touché!
-Být či být, jiná možnost možná kruci není!
-Nebo je?
-Ne! Kočka žije!** 
-    </pre>
-
-<pre class="OK">
+            @if (ShouldShowElement("OK"))
+            {
+                <pre class="OK">
 Kámo, ještě podaruji Tě,
 v naší virtuální realitě,
-okuláry k virtuální realitě,
+okuláry k virtuální realitě,</pre>
+            }
 
-</pre>
-
-<pre class="hardcore">
+            @if (ShouldShowElement("hardcore"))
+            {
+                <pre class="hardcore">
 aby se Ti lépe zvracelo,
 jsme teď zas v pořádný kaši,
 historie se zase opakuje,
-realitu neskutečně skutečnou, tu naši.
+realitu neskutečně skutečnou, tu naši.</pre>
+            }
 
-</pre>
-<pre class="OK">
+            @if (ShouldShowElement("OK-ish"))
+            {
+                <pre class="OK">
 Je to blbé, ale je to tak,
 dcera má má ne-moc jak ty,
 nemám se štěstěnou pakty,
-roste mi z ní levák!
+roste mi z ní levák!</pre>
+            }
 
-</pre>
-<pre class="OK">
+            @if (ShouldShowElement("OK-ish"))
+            {
+                <pre class="OK">
 Že jsem nula negativní,
 může být i pozitivní,
 zůstal jsem zas nepochopen,
-z kosti vnitřky dát jsem schopen.
+z kosti vnitřky dát jsem schopen.</pre>
+            }
 
-</pre>
-<pre class="OK-ish">
+            <!-- Example filtered p element -->
+            @if (ShouldShowElement("brutal"))
+            {
+                <pre class="brutal">
 Jak clifhanger teď pár let viset musíš,
-jako kůň dřít si teď zkusíš,
-drž se pevně,
+jako kůň si dříti zkusíš,
+drž na hraně hodně pevně,
 uvnitř sílu najdeš i vně,
+lidi silný příběh mají rádi,
+zakladatel v nové straně buď,
+budou noví kamarádi.</pre>
+            }
 
-</pre>
-<pre class="hardcore">
+            @if (ShouldShowElement("hardcore"))
+            {
+                <pre class="hardcore">
 Je to blbé, ale je to tak,
 dcera má má ne-moc jak ty,
 leč nemám žádný s ďáblem pakty,
-roste mi z ní levák! 
+roste mi z ní levák!</pre>
+            }
 
-</pre>
-<pre class="OK">
-Že jsem nula negativní,
-může být i pozitivní,
-zůstal jsem zas nepochopen,
-ještě z kosti vnitřky dát jsem schopen.
-
-    </pre>
-<pre class="hardcore">
-Jak clifhanger teď musíš viset, pevně drž se,
-
-
-</pre>
-
-<pre class="OK">
+            <!-- Elements without level-related classes, always visible -->
+            <pre>
 Pozn.:
 Gumicuk lze použít obecně, aby se Ti vracelo,
 co chceš, aby se ti vracelo:
-
 manželka,
 tvá pánská kabelka,
-
 nebo ňáká šikovná sestřička,
 bez trička,
-
 nebo s tričkem s kočkou stále živou, nebo bratr,
 kognice i kondice,
-
 děti, ať jste zase v pěti
 vtipnost a vtipnost (***),
-
-ducha mladost, ze života radost, (****)
-
-</pre>
-<pre class="ok-ish">
-a zdravá nasranost,
-
-</pre>
-<pre>
-jediný problém je umět to správně uvázat...
-
-</pre>
-<br/>
-            <p class="brutal">
-                * tady není Krakonošovo, „Tady je „Kvantovo“!“, proto tam nejsou čárky 😉
+ducha mladost, ze života radost, (****)</pre>
+            <pre>a zdravá nasranost,</pre>
+            <pre>jediný problém je umět to správně uvázat...</pre>
+            <br/>
+            @if (ShouldShowElement("brutal"))
+            {
+                <p class="brutal">
+                    * tady není Krakonošovo, „Tady je „Kvantovo“!“, proto tam nejsou čárky 😉
+                </p>}
+            @if (ShouldShowElement("brutal"))
+            {
+                <p class="brutal">
+                    ** teď nemyslím ty kolotočáře
             </p>
-            <p class="brutal">
-                ** teď nemyslím ty kolotočáře
-            </p>
+            }
             <p>
                 *** všimni si, že schválně nepíšu synonymum toho slova, protože s tím se rýmuje takový ošklivý a zlý - nepěkná věc! Ale se slovem vtipnost se na druhou stranu dá svořit pěkný absolutní rým, Protože se s tím skoro nic nerýmuje, tedy kromě slova cypnost, ale není v Ottově slovníku naučném a nezná ho ani google (mimo archivu obce Číž, ale přišlo mi to jako ňákej renonc), tak jsem si to neuznal. Ale protože mi přišlo, že úplně přesně nevěděls, kde je pahrbek geniality, pořídil jsem ti maximus videoopus her Divadla Járy Cimrmana. Sehnat to nebylo úplně snadné, ale snad ti to s tím tumorem pomůže. Kdybys náhodou neměl mechaniku, jednu jsem zprovoznil a můžu půjčit, ale musíš mi slíbit, že do toho nebudeš hrabat prackama, když to bude zapnuté.
             </p>
@@ -222,7 +254,6 @@ jediný problém je umět to správně uvázat...
             <p>
                 A jak se říká mezi námi programátory – „Stay DRY!“
             </p>
-
             <p class="grey">0re1</p>
         </div>
     </div>
