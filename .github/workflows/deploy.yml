@@ -1,6 +1,5 @@
 name: Deploy to GitHub Pages
 
-# Trigger deployment when pushing to the publish branch
 on:
   push:
     branches:
@@ -11,26 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup .NET with the required version
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'  # adjust as needed
 
-      # Step 3: Install wasm-tools workload for linking
       - name: Install wasm-tools workload
         run: dotnet workload install wasm-tools
 
-      # Step 4: Publish the app in Release mode
       - name: Publish Application
         run: dotnet publish -c Release -o published
 
-      # Step 5: Reorganize published output if needed
-      # This moves files from published/wwwroot to the root of the published folder
       - name: Organize Published Files
         run: |
           if [ -d "published/wwwroot" ]; then
@@ -38,10 +31,10 @@ jobs:
             rm -r published/wwwroot
           fi
 
-      # Step 6: Deploy to gh-pages branch using an action
       - name: Deploy to gh-pages Branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./published
           publish_branch: gh-pages
+          clean: true
