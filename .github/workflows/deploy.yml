@@ -22,7 +22,8 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Publish Application
-        run: dotnet publish -c Release -o published
+        working-directory: src
+        run: dotnet publish -c Release -o ../published
 
       - name: Organize Published Files
         run: |
