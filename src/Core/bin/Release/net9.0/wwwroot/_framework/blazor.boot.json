@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "DopisLadilovi",
   "resources": {
-    "hash": "sha256-eH6trpaU6g9tGRlGcnESChi2KnTgSImWSLbempFLQa0=",
+    "hash": "sha256-TjOTDpwBHVIy0R1wMhq1elKcPQYHaIkwRYqH6ciaYok=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Authorization.esv38zo127.wasm": "Microsoft.AspNetCore.Authorization.wasm",
       "Microsoft.AspNetCore.Components.cwj0bpb71v.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -201,8 +201,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "DopisLadilovi.w7aka78ads.wasm": "DopisLadilovi.wasm",
-      "DopisLadilovi.rytc3ebc94.pdb": "DopisLadilovi.pdb"
+      "DopisLadilovi.ae6h8wu1ma.wasm": "DopisLadilovi.wasm",
+      "DopisLadilovi.azvzy08h67.pdb": "DopisLadilovi.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.1p93gcv9fh.js": "sha256-1UPiprzN3JhPftx3be7XEMaYlUN+chRF41CuttiWVtQ="
@@ -412,10 +412,10 @@
       "WindowsBase.tuf34ieu7y.wasm": "sha256-Bd+l972cOS1eVeLzrQNlgD6LPWV1QXBSzJhv8Tx1WGI=",
       "mscorlib.5q5u0swn6q.wasm": "sha256-g9cI1sECkF7bxMqOSB+W0a4utdDsqTrqZzyiAEeA65g=",
       "netstandard.w8gk1pigg1.wasm": "sha256-QFR5QNPfvyZTexW3IA/AFx6ZmIF/TecvOUsSK4gM4po=",
-      "DopisLadilovi.w7aka78ads.wasm": "sha256-vDZ9WVfOPB0E0KrRT5/EGRCQKX2GQyFVmmzsbuDDCcg="
+      "DopisLadilovi.ae6h8wu1ma.wasm": "sha256-Xh1yeIDQQeOMuGaj53EPdGP5eMB2Zpy9H5uXLbgP6Jg="
     },
     "pdb": {
-      "DopisLadilovi.rytc3ebc94.pdb": "sha256-s600kLeHOI55KwlMNVedUdw0IUaGxExoOlPNdyhcNdw="
+      "DopisLadilovi.azvzy08h67.pdb": "sha256-WlGi70JMucD3z8ruL9e9HUMO5SciwUfOMkRODSGYtDw="
     }
   },
   "cacheBootResources": true,
