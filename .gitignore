@@ -2,6 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/dopisladilovi
-/bin/Debug/net9.0
-/obj
+/src/.vs/ProjectEvaluation
+/src/.vs/DopisLadilovi
+/src/Core/.vs/ProjectEvaluation
+/src/Utils/.vs/QRCodeGenerator
+/src/Utils/bin/Debug/net8.0
+/src/Utils/obj
+/.vs

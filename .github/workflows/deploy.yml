@@ -1,0 +1,46 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - Publish
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
+
+      - name: Publish Blazor App
+        working-directory: src/Core
+        run: dotnet publish -c Release -o ../../published
+
+      - name: Organize Published Files
+        run: |
+          if [ -d "published/wwwroot" ]; then
+            mv published/wwwroot/* published/
+            rm -r published/wwwroot
+          fi
+
+      - name: Deploy to gh-pages Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: published
+          publish_branch: gh-pages
+          force_orphan: true
+          
